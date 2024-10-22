@@ -10,7 +10,7 @@ import AVFoundation
 import Vision
 
 /// Source: https://medium.com/@wesleymatlock/building-a-swiftui-app-for-scanning-text-using-the-camera-c4381aa5ee61
-struct IBANScannerView: UIViewControllerRepresentable {
+struct CameraView: UIViewControllerRepresentable {
     
     @EnvironmentObject var scannerIBANViewModel: ScannerViewModel
         
@@ -61,11 +61,11 @@ struct IBANScannerView: UIViewControllerRepresentable {
     
     class Coordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         
-        var parent: IBANScannerView
+        var parent: CameraView
         var visionRequest = [VNRequest]()
         var scannerViewModel: ScannerViewModel
                 
-        init(_ parent: IBANScannerView, scannerViewModel: ScannerViewModel) {
+        init(_ parent: CameraView, scannerViewModel: ScannerViewModel) {
             self.parent = parent
             self.scannerViewModel = scannerViewModel
             super.init()
