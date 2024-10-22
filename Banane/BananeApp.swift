@@ -9,12 +9,19 @@ import SwiftUI
 
 @main
 struct BananeApp: App {
-    let persistenceController = PersistenceController.shared
+    let persistenceController = CoreDataService.shared
+    
+    @StateObject private var scannerViewModel = ScannerViewModel()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            AddBeneficiaryView()
+                .environment(\.managedObjectContext, persistenceController.context)
+                .environmentObject(ScannerViewModel())
         }
     }
+}
+
+extension CoreDataService {
+    static let shared = CoreDataService(dataModelFileName: "Banane")
 }
