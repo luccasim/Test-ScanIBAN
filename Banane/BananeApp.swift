@@ -11,7 +11,7 @@ import SwiftUI
 struct BananeApp: App {
     let persistenceController = CoreDataService.shared
     
-    @StateObject private var scannerViewModel = ScannerViewModel()
+    @StateObject private var beneficiaryViewModel = BeneficiaryViewModel()
 
     var body: some Scene {
         WindowGroup {
@@ -19,7 +19,7 @@ struct BananeApp: App {
                 AddBeneficiaryView()
             }
             .environment(\.managedObjectContext, persistenceController.context)
-            .environmentObject(ScannerViewModel())
+            .environmentObject(BeneficiaryViewModel())
         }
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddBeneficiaryView: View {
     
-    @EnvironmentObject var scannerViewModel: ScannerViewModel
+    @EnvironmentObject var beneficiaryViewModel: BeneficiaryViewModel
     
     var body: some View {
         VStack(spacing: 40) {
@@ -36,22 +36,22 @@ struct AddBeneficiaryView: View {
             .padding(.horizontal)
             .frame(maxWidth: .infinity, alignment: .center)
             
-            VStack(spacing: 20) {
-                TextField("FR76 XXXX", text: $scannerViewModel.ibanInput)
-                    .onChange(of: scannerViewModel.ibanInput) { newValue in
-                        scannerViewModel.analyse(input: newValue)
+            VStack(spacing: 30) {
+                TextField("FR76 XXXX", text: $beneficiaryViewModel.ibanInput)
+                    .onChange(of: beneficiaryViewModel.ibanInput) { newValue in
+                        beneficiaryViewModel.analyse(input: newValue)
                     }
                 
-                TextField("Personnaliser le nom de compte", text: $scannerViewModel.labelInput)
+                TextField("Personnaliser le nom de compte", text: $beneficiaryViewModel.labelInput)
             }
             
-            if let error = scannerViewModel.errors {
+            if let error = beneficiaryViewModel.errors {
                 Text(error.localizedDescription)
                     .foregroundStyle(Color.red)
                     .bold()
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                            scannerViewModel.errors = nil
+                            beneficiaryViewModel.errors = nil
                         }
                     }
             }
@@ -61,13 +61,13 @@ struct AddBeneficiaryView: View {
             Divider()
             
             Button {
-                scannerViewModel.userValidBeneficiary()
+                beneficiaryViewModel.userValidBeneficiary()
             } label: {
                 Text("Valider")
                     .frame(width: 200)
             }
             .buttonStyle(.borderedProminent)
-            .disabled(!scannerViewModel.isValidForNewBeneficiary)
+            .disabled(!beneficiaryViewModel.isValidForNewBeneficiary)
 
             NavigationLink {
                 BeneficiaryListView()
@@ -87,5 +87,5 @@ struct AddBeneficiaryView: View {
         AddBeneficiaryView()
     }
     .environment(\.managedObjectContext, CoreDataService.shared.context)
-    .environmentObject(ScannerViewModel())
+    .environmentObject(BeneficiaryViewModel())
 }

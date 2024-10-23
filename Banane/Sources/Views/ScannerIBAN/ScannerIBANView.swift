@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ScannerIBANView: View {
     
-    @EnvironmentObject private var scannerViewModel: ScannerViewModel
+    @EnvironmentObject private var beneficiaryViewModel: BeneficiaryViewModel
     @Environment(\.dismiss) var dismiss
         
     var body: some View {
@@ -37,10 +37,11 @@ struct ScannerIBANView: View {
                 }
             }
             .compositingGroup()
+            .accessibilityLabel("Placer votre IBAN dans le cadre pour le scanner")
         }
         .navigationTitle("Scanner votre IBAN")
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(item: $scannerViewModel.scannedIban) { iban in
+        .sheet(item: $beneficiaryViewModel.scannedIban) { iban in
             ValidationSheetView(iban: iban)
                 .presentationDetents([.medium])
         }
@@ -50,6 +51,6 @@ struct ScannerIBANView: View {
 #Preview {
     NavigationStack {
         ScannerIBANView()
-            .environmentObject(ScannerViewModel())
+            .environmentObject(BeneficiaryViewModel())
     }
 }

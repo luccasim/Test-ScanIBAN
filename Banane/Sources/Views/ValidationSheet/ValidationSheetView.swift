@@ -10,7 +10,7 @@ import SwiftUI
 struct ValidationSheetView: View {
     
     
-    @EnvironmentObject private var scannerViewModel: ScannerViewModel
+    @EnvironmentObject private var beneficiaryViewModel: BeneficiaryViewModel
     @Environment(\.dismiss) var dismiss
     
     let iban: ValidIban
@@ -29,12 +29,13 @@ struct ValidationSheetView: View {
                 Text("\(iban.iban)")
                     .bold()
             }
+            .accessibilityLabel(Text("Pensez à le vérifier avant de valider:\(iban.iban)"))
             
             Spacer()
             
             VStack(spacing: 20) {
                 Button {
-                    scannerViewModel.userConfirmScannedIBAN(scannedIban: iban)
+                    beneficiaryViewModel.userConfirmScannedIBAN(scannedIban: iban)
                     dismiss()
                 } label: {
                     Text("Valider")
@@ -43,7 +44,7 @@ struct ValidationSheetView: View {
                 .buttonStyle(.borderedProminent)
                 
                 Button {
-                    scannerViewModel.userConfirmScannedIBAN(scannedIban: nil)
+                    beneficiaryViewModel.userConfirmScannedIBAN(scannedIban: nil)
                 } label: {
                     Text("Recommencer")
                         .frame(width: 200)
@@ -58,5 +59,5 @@ struct ValidationSheetView: View {
 
 #Preview {
     ValidationSheetView(iban: .init(lang: "FR", iban: "FR23193789"))
-        .environmentObject(ScannerViewModel(scannedIban: .init(lang: "FR", iban: "FR23193789")))
+        .environmentObject(BeneficiaryViewModel(scannedIban: .init(lang: "FR", iban: "FR23193789")))
 }

@@ -17,6 +17,7 @@ struct BeneficiaryListView: View {
                 Text("Tous")
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .accessibilityHidden(true)
                 
                 ForEach(beneficiary, id: \.self.iban) { beneficiary in
                     if let iban = beneficiary.iban {

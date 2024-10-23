@@ -1,5 +1,5 @@
 //
-//  ScannerViewModel.swift
+//  BeneficiaryViewModel.swift
 //  Banane
 //
 //  Created by Luc on 22/10/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ScannerViewModel: ObservableObject {
+final class BeneficiaryViewModel: ObservableObject {
     
     // MARK: - Published
     

@@ -12,10 +12,10 @@ import Vision
 /// Source: https://medium.com/@wesleymatlock/building-a-swiftui-app-for-scanning-text-using-the-camera-c4381aa5ee61
 struct CameraView: UIViewControllerRepresentable {
     
-    @EnvironmentObject var scannerIBANViewModel: ScannerViewModel
+    @EnvironmentObject var scannerIBANViewModel: BeneficiaryViewModel
         
     func makeCoordinator() -> Coordinator {
-        return Coordinator(self, scannerViewModel: scannerIBANViewModel)
+        return Coordinator(self, beneficiaryViewModel: scannerIBANViewModel)
     }
     
     func makeUIViewController(context: Context) -> UIViewController {
@@ -63,11 +63,11 @@ struct CameraView: UIViewControllerRepresentable {
         
         var parent: CameraView
         var visionRequest = [VNRequest]()
-        var scannerViewModel: ScannerViewModel
+        var beneficiaryViewModel: BeneficiaryViewModel
                 
-        init(_ parent: CameraView, scannerViewModel: ScannerViewModel) {
+        init(_ parent: CameraView, beneficiaryViewModel: BeneficiaryViewModel) {
             self.parent = parent
-            self.scannerViewModel = scannerViewModel
+            self.beneficiaryViewModel = beneficiaryViewModel
             super.init()
             
             let textRequest = VNRecognizeTextRequest(completionHandler: self.handleDetectedText)
@@ -87,7 +87,7 @@ struct CameraView: UIViewControllerRepresentable {
                 guard let candidate = observation.topCandidates(1).first else { continue }
                 let text = candidate.string.replacingOccurrences(of: " ", with: "")
                 
-                scannerViewModel.analyse(input: text)
+                beneficiaryViewModel.analyse(input: text)
             }
         }
         
