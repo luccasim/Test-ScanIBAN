@@ -13,6 +13,7 @@ import Combine
 /// Source: https://medium.com/@wesleymatlock/building-a-swiftui-app-for-scanning-text-using-the-camera-c4381aa5ee61
 struct CameraView: UIViewControllerRepresentable {
         
+    let captureSession: AVCaptureSession
     var result: (String) -> Void
         
     func makeCoordinator() -> Coordinator {
@@ -22,22 +23,8 @@ struct CameraView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
         
         let viewController = UIViewController()
-        let captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .photo
-                
-        guard let videoCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else { 
-            return viewController
-        }
         
-        guard let videoInput = try? AVCaptureDeviceInput(device: videoCaptureDevice) else { 
-            return viewController
-        }
-
-        if captureSession.canAddInput(videoInput) {
-            captureSession.addInput(videoInput)
-        }
-        
-        let videoOutput = AVCaptureVideoDataOutput()
+        let videoOutput = AVCaptureVideoDataOutput() // todo: faire un service pour configurer une session
         videoOutput.setSampleBufferDelegate(context.coordinator, queue: DispatchQueue(label: "videoQueue"))
         
         if captureSession.canAddOutput(videoOutput) {
@@ -48,10 +35,6 @@ struct CameraView: UIViewControllerRepresentable {
         previewLayer.frame = viewController.view.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
         viewController.view.layer.addSublayer(previewLayer)
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            captureSession.startRunning()
-        }
         
         return viewController
     }

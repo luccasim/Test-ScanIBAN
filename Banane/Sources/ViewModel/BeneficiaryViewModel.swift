@@ -12,6 +12,7 @@ final class BeneficiaryViewModel: ObservableObject {
     // MARK: - Published
     
     @Published var scannedIban: ValidIban?
+    @Published var cameraSession: CameraSession?
     @Published var ibanInput = ""
     @Published var labelInput = ""
     @Published var errors: Error?
@@ -32,6 +33,7 @@ final class BeneficiaryViewModel: ObservableObject {
     
     private let scannerIBANUsecase = ScannerValidateIBANUsecase()
     private let createNewBeneficiaryUsecase = ScannerCreateNewBeneficiaryUsecase()
+    private let setupCameraSessionUsecase = SetupCameraUsecase()
     
     // MARK: - Triggers
     
@@ -47,7 +49,30 @@ final class BeneficiaryViewModel: ObservableObject {
                 }
             }
         }
-    } 
+    }
+    
+    func userOpenScannerView() {
+        do {
+            let result = try setupCameraSessionUsecase.execute(input: .init())
+            self.cameraSession = result.validCaptureSession
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.cameraSession?.captureSession.startRunning()
+            }
+        } catch {
+            self.errors = errors
+        }
+        self.ibanInput = ""
+        self.isValidIban = false
+        self.scannedIban = nil
+        self.isNavigateToScan = true
+    }
+    
+    func userLeaveScannerView() {
+        DispatchQueue.global(qos: .userInitiated).sync {
+            self.cameraSession?.captureSession.stopRunning()
+        }
+        self.cameraSession = nil
+    }
     
     func userConfirmScannedIBAN(scannedIban: ValidIban?) {
         if let scannedIban = scannedIban {

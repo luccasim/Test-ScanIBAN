@@ -14,8 +14,11 @@ struct ScannerIBANView: View {
         
     var body: some View {
         ZStack {
-            CameraView() { result in
-                beneficiaryViewModel.analyse(input: result)
+            
+            if let cameraSession = beneficiaryViewModel.cameraSession {
+                CameraView(captureSession: cameraSession.captureSession) { result in
+                    beneficiaryViewModel.analyse(input: result)
+                }
             }
             
             ZStack {
@@ -46,6 +49,9 @@ struct ScannerIBANView: View {
         .sheet(item: $beneficiaryViewModel.scannedIban) { iban in
             ValidationSheetView(iban: iban)
                 .presentationDetents([.medium])
+        }
+        .onDisappear {
+            beneficiaryViewModel.userLeaveScannerView()
         }
     }
 }

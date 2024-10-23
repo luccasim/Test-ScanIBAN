@@ -15,6 +15,4 @@ protocol CoreDataProtocol: Sendable {
     func save()
 }
 
-extension CoreDataService: CoreDataProtocol {
-    
-}
+extension CoreDataService: CoreDataProtocol {} // Pas besoin d'override
