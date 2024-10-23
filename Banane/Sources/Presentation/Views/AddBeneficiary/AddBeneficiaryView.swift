@@ -31,6 +31,20 @@ struct AddBeneficiaryView: View {
         .padding()
         .navigationTitle("AddBeneficiaryView.Title.Navigation")
         .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: beneficiaryViewModel.hasError) { newValue in
+            if newValue {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+            }
+        }
+        .alert(isPresented: $beneficiaryViewModel.hasError) {
+            Alert(
+                title: Text("BananeApp.ErrorTitle.Alert"),
+                message: Text(beneficiaryViewModel.errors?.localizedDescription ?? ""),
+                dismissButton: .default(Text("BananeApp.ErrorDismiss.Alert")) {
+                    beneficiaryViewModel.hasError = false
+                }
+            )
+        }
     }
     
     var textFields: some View {
@@ -45,7 +59,6 @@ struct AddBeneficiaryView: View {
                 TextField("AddBeneficiaryView.LabelPlaceholder.TextField", text: $beneficiaryViewModel.labelInput)
             }
             .padding()
-            .accentColor(Color.white)
             .background(Color.gray.opacity(0.2).cornerRadius(8))
         }
     }

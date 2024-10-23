@@ -55,6 +55,9 @@ struct ValidationSheetView: View {
             .padding()
         }
         .presentationDetents([.medium])
+        .onAppear {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
     }
 }
 

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct BeneficiaryListView: View {
     
+    @EnvironmentObject private var beneficiaryViewModel: BeneficiaryViewModel
+    
     @FetchRequest(sortDescriptors: [SortDescriptor(\.label)])
     var beneficiary: FetchedResults<Beneficiary>
     
@@ -36,9 +38,9 @@ struct BeneficiaryListView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             }
                             .padding()
-                            .cornerRadius(15)
-                            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
-                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
                         }
                     }
                 }
@@ -55,6 +57,9 @@ struct BeneficiaryListView: View {
         .padding()
         .navigationTitle("BeneficiaryListView.Title.Navigation")
         .navigationBarTitleDisplayMode(.inline)
+        .onDisappear {
+            beneficiaryViewModel.resetTextField()
+        }
     }
 }
 
@@ -63,4 +68,5 @@ struct BeneficiaryListView: View {
         BeneficiaryListView()
     }
     .environment(\.managedObjectContext, CoreDataService.shared.context)
+    .environmentObject(BeneficiaryViewModel())
 }

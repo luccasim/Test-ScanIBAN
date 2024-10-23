@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 final class BeneficiaryViewModel: ObservableObject {
     
     // MARK: - Published
@@ -47,8 +46,6 @@ final class BeneficiaryViewModel: ObservableObject {
                 if let iban = result.iban {
                     self.scannedIban = iban
                     self.isValidIban = true
-                } else {
-                    self.isValidIban = false
                 }
             }
         }
@@ -58,21 +55,26 @@ final class BeneficiaryViewModel: ObservableObject {
         do {
             let result = try setupCameraSessionUsecase.execute(input: .init())
             self.cameraSession = result.validCaptureSession
-            DispatchQueue.global(qos: .userInitiated).sync {
+            DispatchQueue.global(qos: .userInitiated).async {
                 self.cameraSession?.captureSession.startRunning()
             }
         } catch {
             self.errors = errors
             self.hasError = true
         }
+        self.isNavigateToScan = true
+        self.resetTextField()
+    }
+    
+    func resetTextField() {
         self.ibanInput = ""
+        self.labelInput = ""
         self.isValidIban = false
         self.scannedIban = nil
-        self.isNavigateToScan = true
     }
     
     func userLeaveScannerView() {
-        DispatchQueue.global(qos: .userInitiated).sync {
+        DispatchQueue.global(qos: .userInitiated).async {
             self.cameraSession?.captureSession.stopRunning()
         }
         self.cameraSession = nil
