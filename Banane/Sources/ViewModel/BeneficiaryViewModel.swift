@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class BeneficiaryViewModel: ObservableObject {
     
     // MARK: - Published
@@ -17,6 +18,7 @@ final class BeneficiaryViewModel: ObservableObject {
     @Published var labelInput = ""
     @Published var errors: Error?
     @Published var isValidIban = false
+    @Published var hasError = false
     
     @Published var isNavigateToScan = false
     @Published var isNavigateToList = false
@@ -27,6 +29,7 @@ final class BeneficiaryViewModel: ObservableObject {
     
     init(scannedIban: ValidIban? = nil) {
         self.scannedIban = scannedIban
+        self.errors = SetupCameraUsecase.Failure.unableToSetupCaptureDevice
     }
     
     // MARK: - Usecases
@@ -55,11 +58,12 @@ final class BeneficiaryViewModel: ObservableObject {
         do {
             let result = try setupCameraSessionUsecase.execute(input: .init())
             self.cameraSession = result.validCaptureSession
-            DispatchQueue.global(qos: .userInitiated).async {
+            DispatchQueue.global(qos: .userInitiated).sync {
                 self.cameraSession?.captureSession.startRunning()
             }
         } catch {
             self.errors = errors
+            self.hasError = true
         }
         self.ibanInput = ""
         self.isValidIban = false
@@ -91,6 +95,7 @@ final class BeneficiaryViewModel: ObservableObject {
             isNavigateToList = true
         } catch {
             self.errors = error
+            self.hasError = true
         }
     }
 }

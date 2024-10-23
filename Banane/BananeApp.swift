@@ -19,9 +19,9 @@ struct BananeApp: App {
         WindowGroup {
             NavigationStack {
                 AddBeneficiaryView()
-                    .onReceive(beneficiaryViewModel.$errors) { errorMessage in
-                        if errorMessage != nil {
-                            localizedError = errorMessage?.localizedDescription ?? ""
+                    .onChange(of: beneficiaryViewModel.hasError) { errorMessage in
+                        if let errorMessage = beneficiaryViewModel.errors?.localizedDescription {
+                            localizedError = errorMessage
                             showAlertError = true
                         }
                     }
@@ -31,6 +31,7 @@ struct BananeApp: App {
                             message: Text(localizedError),
                             dismissButton: .default(Text("OK")) {
                                 localizedError = ""
+                                beneficiaryViewModel.hasError = false
                             }
                         )
                     }

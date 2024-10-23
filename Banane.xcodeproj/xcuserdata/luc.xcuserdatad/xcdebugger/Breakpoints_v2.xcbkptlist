@@ -23,32 +23,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "46EAE13E-5AAF-41F5-9ACB-84A17A3D7388"
-            shouldBeEnabled = "Yes"
+            uuid = "0E2E95F6-259C-4F3F-85C6-34C9602D9380"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Banane/Sources/ViewModel/BeneficiaryViewModel.swift"
+            filePath = "Banane/Sources/Usecases/ValidateIBAN/ScannerValidateIBANUsecase.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "userOpenScannerView()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "102DC6B7-1287-4A3C-B9CB-502F892CD80D"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Banane/Sources/ViewModel/BeneficiaryViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "userOpenScannerView()"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "execute(input:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

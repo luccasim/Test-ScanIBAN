@@ -28,9 +28,15 @@ final class SetupCameraUsecase: SetupCameraUsecaseProtocol {
     
     // MARK: - Failure
     
-    enum Failure: Error {
+    enum Failure: Error, LocalizedError {
         case unableToSetupCaptureDevice
         case unableToSetupDeviceInput
+        
+        var errorDescription: String? {
+            "L'application n'a pas accès à votre caméra. Veuillez vérifier qu'elle est bien" +
+            " autorisée dans les réglages ou qu'elle n'est pas endommagée"
+        }
+        
     }
     
     // MARK: - DataTask

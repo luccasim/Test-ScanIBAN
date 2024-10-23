@@ -38,7 +38,7 @@ final class ScannerValidateIBANUsecase: ScannerValidateIBANUsecaseProtocol {
         
         let supportedIBAN = [
             "FR": "^FR\\d{2}[0-9A-Z]{23}$",
-            "DE": "^DE\\d{20}$"
+            "DE": "^DE\\d{2}\\d{18}$"
         ]
         
         for elem in supportedIBAN {
