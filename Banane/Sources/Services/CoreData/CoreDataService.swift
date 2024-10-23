@@ -89,4 +89,15 @@ public final class CoreDataService: Sendable {
             }
         }
     }
+    
+    func clear<T: NSManagedObject>(entity: T.Type) {
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: entity.fetchRequest())
+
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+        } catch {
+            print("Erreur lors de la suppression des objets : \(error)")
+        }
+    }
 }
