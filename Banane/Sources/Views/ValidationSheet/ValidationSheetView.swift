@@ -33,7 +33,7 @@ struct ValidationSheetView: View {
             
             Spacer()
             
-            VStack(spacing: 20) {
+            VStack(spacing: 10) {
                 Button {
                     beneficiaryViewModel.userConfirmScannedIBAN(scannedIban: iban)
                     dismiss()
@@ -52,6 +52,7 @@ struct ValidationSheetView: View {
                 }
                 .buttonStyle(SecondaryButtonStyle())
             }
+            .padding()
         }
         .presentationDetents([.medium])
     }

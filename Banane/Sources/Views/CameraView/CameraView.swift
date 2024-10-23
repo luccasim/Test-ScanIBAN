@@ -8,14 +8,15 @@
 import SwiftUI
 import AVFoundation
 import Vision
+import Combine
 
 /// Source: https://medium.com/@wesleymatlock/building-a-swiftui-app-for-scanning-text-using-the-camera-c4381aa5ee61
 struct CameraView: UIViewControllerRepresentable {
-    
-    @EnvironmentObject var scannerIBANViewModel: BeneficiaryViewModel
+        
+    var result: (String) -> Void
         
     func makeCoordinator() -> Coordinator {
-        return Coordinator(self, beneficiaryViewModel: scannerIBANViewModel)
+        return Coordinator(self)
     }
     
     func makeUIViewController(context: Context) -> UIViewController {
@@ -63,16 +64,23 @@ struct CameraView: UIViewControllerRepresentable {
         
         var parent: CameraView
         var visionRequest = [VNRequest]()
-        var beneficiaryViewModel: BeneficiaryViewModel
+        let textSubject = PassthroughSubject<String, Never>()
+        var cancellables = Set<AnyCancellable>()
                 
-        init(_ parent: CameraView, beneficiaryViewModel: BeneficiaryViewModel) {
+        init(_ parent: CameraView) {
             self.parent = parent
-            self.beneficiaryViewModel = beneficiaryViewModel
             super.init()
             
             let textRequest = VNRecognizeTextRequest(completionHandler: self.handleDetectedText)
             textRequest.regionOfInterest = CGRect(x: 0.25, y: 0.25, width: 0.5, height: 0.5)
             textRequest.recognitionLevel = .fast
+            
+            textSubject
+                .receive(on: RunLoop.main)
+                .sink { throttledText in
+                    self.parent.result(throttledText)
+                }
+                .store(in: &cancellables)
 
             self.visionRequest = [textRequest]
         }
@@ -84,10 +92,11 @@ struct CameraView: UIViewControllerRepresentable {
             }
                         
             for observation in observations {
-                guard let candidate = observation.topCandidates(1).first else { continue }
+                guard let candidate = observation.topCandidates(1).first else {
+                    continue
+                }
                 let text = candidate.string.replacingOccurrences(of: " ", with: "")
-                
-                beneficiaryViewModel.analyse(input: text)
+                textSubject.send(text)
             }
         }
         

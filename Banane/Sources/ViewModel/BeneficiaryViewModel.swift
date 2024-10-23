@@ -17,6 +17,9 @@ final class BeneficiaryViewModel: ObservableObject {
     @Published var errors: Error?
     @Published var isValidIban = false
     
+    @Published var isNavigateToScan = false
+    @Published var isNavigateToList = false
+    
     var isValidForNewBeneficiary: Bool {
         !labelInput.isEmpty && isValidIban
     }
@@ -49,6 +52,8 @@ final class BeneficiaryViewModel: ObservableObject {
     func userConfirmScannedIBAN(scannedIban: ValidIban?) {
         if let scannedIban = scannedIban {
             self.ibanInput = scannedIban.iban
+            self.isNavigateToScan = false
+            self.isValidIban = true
         } else {
             self.isValidIban = false
         }
@@ -58,6 +63,7 @@ final class BeneficiaryViewModel: ObservableObject {
     func userValidBeneficiary() {
         do {
             try createNewBeneficiaryUsecase.execute(input: .init(iban: ibanInput, label: labelInput))
+            isNavigateToList = true
         } catch {
             self.errors = error
         }

@@ -18,13 +18,16 @@ struct AddBeneficiaryView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             HStack(spacing: 20) {
-                NavigationLink {
-                    ScannerIBANView()
+                Button {
+                    beneficiaryViewModel.isNavigateToScan = true
                 } label: {
                     Label("Scanner", systemImage: "camera")
                         .padding()
                 }
                 .buttonStyle(SecondaryButtonStyle())
+                .navigationDestination(isPresented: $beneficiaryViewModel.isNavigateToScan) {
+                    ScannerIBANView()
+                }
                 
                 NavigationLink {
                     EmptyView()
@@ -56,8 +59,8 @@ struct AddBeneficiaryView: View {
             
             if let error = beneficiaryViewModel.errors {
                 Text(error.localizedDescription)
+                    .fixedSize(horizontal: false, vertical: true)
                     .foregroundStyle(Color.red)
-                    .bold()
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                             beneficiaryViewModel.errors = nil
@@ -70,7 +73,6 @@ struct AddBeneficiaryView: View {
             Divider()
             
             VStack(spacing: 20) {
-                
                 Button {
                     beneficiaryViewModel.userValidBeneficiary()
                 } label: {
@@ -80,13 +82,15 @@ struct AddBeneficiaryView: View {
                 .buttonStyle(PrimaryButtonStyle())
                 .disabled(!beneficiaryViewModel.isValidForNewBeneficiary)
                 
-                NavigationLink {
-                    BeneficiaryListView()
+                Button {
                 } label: {
                     Text("Voir la liste des béneficiares")
                         .padding()
                 }
                 .buttonStyle(SecondaryButtonStyle())
+            }
+            .navigationDestination(isPresented: $beneficiaryViewModel.isNavigateToList) {
+                BeneficiaryListView()
             }
         }
         .padding()

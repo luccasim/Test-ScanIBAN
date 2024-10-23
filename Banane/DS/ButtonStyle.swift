@@ -10,24 +10,28 @@ import SwiftUI
 
 struct PrimaryButtonStyle: ButtonStyle {
     
+    @Environment(\.isEnabled) private var isEnabled: Bool
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(height: 50)
             .foregroundStyle(Color.white)
-            .background(Color.bfbBlue)
+            .background(isEnabled ? Color.bfbBlue : Color.gray)
             .clipShape(Capsule())
     }
 }
 
 struct SecondaryButtonStyle: ButtonStyle {
     
+    @Environment(\.isEnabled) private var isEnabled: Bool
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(height: 50)
-            .foregroundStyle(Color.bfbBlue)
+            .foregroundStyle(isEnabled ? Color.bfbBlue : Color.gray)
             .clipShape(Capsule())
             .overlay(
-                Capsule().stroke(Color.bfbBlue)
+                Capsule().stroke(isEnabled ? Color.bfbBlue : Color.gray)
             )
     }
 }

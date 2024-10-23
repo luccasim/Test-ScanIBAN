@@ -14,7 +14,9 @@ struct ScannerIBANView: View {
         
     var body: some View {
         ZStack {
-            CameraView()
+            CameraView() { result in
+                beneficiaryViewModel.analyse(input: result)
+            }
             
             ZStack {
                 Rectangle()
