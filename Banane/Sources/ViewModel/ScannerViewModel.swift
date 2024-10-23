@@ -21,6 +21,10 @@ final class ScannerViewModel: ObservableObject {
         !labelInput.isEmpty && isValidIban
     }
     
+    init(scannedIban: ValidIban? = nil) {
+        self.scannedIban = scannedIban
+    }
+    
     // MARK: - Usecases
     
     private let scannerIBANUsecase = ScannerValidateIBANUsecase()
@@ -40,15 +44,15 @@ final class ScannerViewModel: ObservableObject {
                 }
             }
         }
-    }
+    } 
     
     func userConfirmScannedIBAN(scannedIban: ValidIban?) {
         if let scannedIban = scannedIban {
             self.ibanInput = scannedIban.iban
         } else {
-            self.scannedIban = nil
             self.isValidIban = false
         }
+        self.scannedIban = nil // dismiss sheet
     }
     
     func userValidBeneficiary() {

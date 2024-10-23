@@ -15,9 +15,11 @@ struct BananeApp: App {
 
     var body: some Scene {
         WindowGroup {
-            AddBeneficiaryView()
-                .environment(\.managedObjectContext, persistenceController.context)
-                .environmentObject(ScannerViewModel())
+            NavigationStack {
+                AddBeneficiaryView()
+            }
+            .environment(\.managedObjectContext, persistenceController.context)
+            .environmentObject(ScannerViewModel())
         }
     }
 }

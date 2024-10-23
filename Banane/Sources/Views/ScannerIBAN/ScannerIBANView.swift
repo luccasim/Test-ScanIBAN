@@ -14,10 +14,12 @@ struct ScannerIBANView: View {
         
     var body: some View {
         ZStack {
-            IBANScannerView()
+            CameraView()
             
             ZStack {
-                Rectangle().fill(Color.blue.opacity(0.3))
+                Rectangle()
+                    .fill(Color.blue.opacity(0.3))
+                
                 Rectangle()
                     .frame(height: 50)
                     .cornerRadius(10)
@@ -29,6 +31,8 @@ struct ScannerIBANView: View {
                         .multilineTextAlignment(.center)
                         .padding()
                         .foregroundStyle(Color.white)
+                        .bold()
+                    
                     Spacer()
                 }
             }
@@ -37,36 +41,9 @@ struct ScannerIBANView: View {
         .navigationTitle("Scanner votre IBAN")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $scannerViewModel.scannedIban) { iban in
-            validationSheet(iban: iban)
+            ValidationSheetView(iban: iban)
+                .presentationDetents([.medium])
         }
-    }
-    
-    private func validationSheet(iban: ValidIban) -> some View {
-        VStack {
-            Text("L'IBAN du bénéficiaire a été scanné")
-                .bold()
-            
-            VStack {
-                Text("Pensez à le vérifier avant de valider:")
-                Text("\(iban.iban)")
-                    .bold()
-            }
-            VStack {
-                Button {
-                    scannerViewModel.userConfirmScannedIBAN(scannedIban: iban)
-                    dismiss()
-                } label: {
-                    Text("Valider")
-                }
-                
-                Button {
-                    scannerViewModel.userConfirmScannedIBAN(scannedIban: nil)
-                } label: {
-                    Text("Recommencer")
-                }
-            }
-        }
-        .presentationDetents([.medium])
     }
 }
 

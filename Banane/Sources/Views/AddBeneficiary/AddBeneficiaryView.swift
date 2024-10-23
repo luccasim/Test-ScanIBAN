@@ -19,14 +19,22 @@ struct AddBeneficiaryView: View {
             
             HStack {
                 NavigationLink {
-                    IBANScannerView()
+                    ScannerIBANView()
                 } label: {
-                    Label("Scanner", systemImage: "plus")
+                    Label("Scanner", systemImage: "camera")
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                
+                NavigationLink {
+                    EmptyView()
+                } label: {
+                    Label("Importer", systemImage: "square.and.arrow.up")
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(true)
             }
             .padding(.horizontal)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .center)
             
             VStack(spacing: 20) {
                 TextField("FR76 XXXX", text: $scannerViewModel.ibanInput)
@@ -56,7 +64,9 @@ struct AddBeneficiaryView: View {
                 scannerViewModel.userValidBeneficiary()
             } label: {
                 Text("Valider")
+                    .frame(width: 200)
             }
+            .buttonStyle(.borderedProminent)
             .disabled(!scannerViewModel.isValidForNewBeneficiary)
 
             NavigationLink {

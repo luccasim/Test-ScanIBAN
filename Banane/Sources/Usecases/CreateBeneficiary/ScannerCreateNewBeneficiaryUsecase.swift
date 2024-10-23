@@ -36,8 +36,15 @@ final class ScannerCreateNewBeneficiaryUsecase: ScannerCreateNewBeneficiaryUseca
     
     // MARK: - Failure
     
-    enum Failure: Error {
+    enum Failure: Error, LocalizedError {
         case alreadyExist
+        
+        var errorDescription: String? {
+            switch self {
+            case .alreadyExist:
+                "Ce bénéficiaire est déjà enregistré dans votre liste."
+            }
+        }
     }
     
     // MARK: - DataTask
@@ -49,13 +56,15 @@ final class ScannerCreateNewBeneficiaryUsecase: ScannerCreateNewBeneficiaryUseca
             predicate: .init(format: "iban == %@", input.iban)
         )
         
-        guard !fetchResult.isEmpty else {
+        guard fetchResult.isEmpty else {
             throw Failure.alreadyExist
         }
         
         let newBeneficiary = repository.coreDataService.create(entity: Beneficiary.self)
         newBeneficiary.iban = input.iban
         newBeneficiary.label = input.label
+        
+        repository.coreDataService.save()
         
         return .init(beneficiary: newBeneficiary)
     }
