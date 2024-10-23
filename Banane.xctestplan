@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "6E50A706-CFC9-496A-B8F0-8D98EA81155C",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Banane.xcodeproj",
+      "identifier" : "814306572CC7A416004EF1FD",
+      "name" : "Banane"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:Banane.xcodeproj",
+        "identifier" : "8143066D2CC7A418004EF1FD",
+        "name" : "BananeTests"
+      }
+    },
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Banane.xcodeproj",
+        "identifier" : "814306772CC7A418004EF1FD",
+        "name" : "BananeUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

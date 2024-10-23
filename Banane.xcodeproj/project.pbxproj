@@ -27,6 +27,7 @@
 		814306582CC7A416004EF1FD /* Banane.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Banane.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8143066E2CC7A418004EF1FD /* BananeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BananeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		814306782CC7A418004EF1FD /* BananeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BananeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		81E3F7172CC937A90094D6A8 /* Banane.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Banane.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +76,7 @@
 		8143064F2CC7A416004EF1FD = {
 			isa = PBXGroup;
 			children = (
+				81E3F7172CC937A90094D6A8 /* Banane.xctestplan */,
 				8143065A2CC7A416004EF1FD /* Banane */,
 				814306712CC7A418004EF1FD /* BananeTests */,
 				8143067B2CC7A418004EF1FD /* BananeUITests */,
@@ -191,6 +193,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				fr,
 				Base,
 			);
 			mainGroup = 8143064F2CC7A416004EF1FD;
@@ -326,6 +329,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -380,6 +384,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};

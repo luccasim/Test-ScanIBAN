@@ -32,7 +32,7 @@ struct ScannerIBANView: View {
                     .blendMode(.destinationOut)
                 
                 VStack {
-                    Text("Placer votre IBAN dans le cadre pour \nle scanner")
+                    Text("ScannerIBANView.CameraDescription.Text")
                         .multilineTextAlignment(.center)
                         .padding()
                         .foregroundStyle(Color.white)
@@ -42,9 +42,9 @@ struct ScannerIBANView: View {
                 }
             }
             .compositingGroup()
-            .accessibilityLabel("Placer votre IBAN dans le cadre pour le scanner")
+            .accessibilityLabel("ScannerIBANView.CameraDescription.VoiceOver")
         }
-        .navigationTitle("Scanner votre IBAN")
+        .navigationTitle("ScannerIBANView.Title.Navigation")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $beneficiaryViewModel.scannedIban) { iban in
             ValidationSheetView(iban: iban)

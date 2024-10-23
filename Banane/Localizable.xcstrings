@@ -1,0 +1,226 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
+    },
+    "AddBeneficiaryView.AddIBANDescription.Text" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scannez, importer ou saisissez l'IBAN"
+          }
+        }
+      }
+    },
+    "AddBeneficiaryView.IBANPlaceholder.TextField" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FR76 XXXX"
+          }
+        }
+      }
+    },
+    "AddBeneficiaryView.Import.Button" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importer"
+          }
+        }
+      }
+    },
+    "AddBeneficiaryView.LabelPlaceholder.TextField" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personnaliser le nom de compte"
+          }
+        }
+      }
+    },
+    "AddBeneficiaryView.Scan.Button" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scanner"
+          }
+        }
+      }
+    },
+    "AddBeneficiaryView.SeeBeneficiary.Button" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voir la liste des béneficiares"
+          }
+        }
+      }
+    },
+    "AddBeneficiaryView.Title.Navigation" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter un bénéficiare"
+          }
+        }
+      }
+    },
+    "AddBeneficiaryView.Valid.Button" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valider"
+          }
+        }
+      }
+    },
+    "BananeApp.ErrorDismiss.Alert" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "BananeApp.ErrorTitle.Alert" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur"
+          }
+        }
+      }
+    },
+    "BeneficiaryListView.AllBeneficiary.Text" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tous"
+          }
+        }
+      }
+    },
+    "BeneficiaryListView.EmptyBeneficiary.Text" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous n'avez pas de bénéficiaires"
+          }
+        }
+      }
+    },
+    "BeneficiaryListView.Title.Navigation" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mes Béneficiaires"
+          }
+        }
+      }
+    },
+    "ScannerIBANView.CameraDescription.Text" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Placer votre IBAN dans le cadre pour \nle scanner"
+          }
+        }
+      }
+    },
+    "ScannerIBANView.CameraDescription.VoiceOver" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Placer votre IBAN dans le cadre pour le scanner"
+          }
+        }
+      }
+    },
+    "ScannerIBANView.Title.Navigation" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scanner votre IBAN"
+          }
+        }
+      }
+    },
+    "ValidationSheetView.IBANValidationDescription.Text" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pensez à le vérifier avant de valider:"
+          }
+        }
+      }
+    },
+    "ValidationSheetView.IBANValidationDescription.VoiceOver:%@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pensez à le vérifier avant de valider %@"
+          }
+        }
+      }
+    },
+    "ValidationSheetView.Retry.Button" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recommencer"
+          }
+        }
+      }
+    },
+    "ValidationSheetView.Title.Text" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'IBAN du bénéficiaire a été scanné"
+          }
+        }
+      }
+    },
+    "ValidationSheetView.Valid.Button" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valider"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

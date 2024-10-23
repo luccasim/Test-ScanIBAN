@@ -14,7 +14,7 @@ struct AddBeneficiaryView: View {
     var body: some View {
         VStack(spacing: 40) {
             
-            Text("Scannez, importer ou saisissez l'IBAN")
+            Text("AddBeneficiaryView.AddIBANDescription.Text")
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             scanFeatureButtons
@@ -29,20 +29,20 @@ struct AddBeneficiaryView: View {
 
         }
         .padding()
-        .navigationTitle("Ajouter un bénéficiare")
+        .navigationTitle("AddBeneficiaryView.Title.Navigation")
         .navigationBarTitleDisplayMode(.inline)
     }
     
     var textFields: some View {
         VStack(spacing: 20) {
             Group {
-                TextField("FR76 XXXX", text: $beneficiaryViewModel.ibanInput)
+                TextField("AddBeneficiaryView.IBANPlaceholder.TextField", text: $beneficiaryViewModel.ibanInput)
                     .onChange(of: beneficiaryViewModel.ibanInput) { newValue in
                         beneficiaryViewModel.analyse(input: newValue)
                     }
                 
                 
-                TextField("Personnaliser le nom de compte", text: $beneficiaryViewModel.labelInput)
+                TextField("AddBeneficiaryView.LabelPlaceholder.TextField", text: $beneficiaryViewModel.labelInput)
             }
             .padding()
             .accentColor(Color.white)
@@ -55,7 +55,7 @@ struct AddBeneficiaryView: View {
             Button {
                 beneficiaryViewModel.userOpenScannerView()
             } label: {
-                Label("Scanner", systemImage: "camera")
+                Label("AddBeneficiaryView.Scan.Button", systemImage: "camera")
                     .padding()
             }
             .buttonStyle(SecondaryButtonStyle())
@@ -66,7 +66,7 @@ struct AddBeneficiaryView: View {
             NavigationLink {
                 EmptyView()
             } label: {
-                Label("Importer", systemImage: "square.and.arrow.up")
+                Label("AddBeneficiaryView.Import.Button", systemImage: "square.and.arrow.up")
                     .padding()
             }
             .buttonStyle(SecondaryButtonStyle())
@@ -81,7 +81,7 @@ struct AddBeneficiaryView: View {
             Button {
                 beneficiaryViewModel.userValidBeneficiary()
             } label: {
-                Text("Valider")
+                Text("AddBeneficiaryView.Valid.Button")
                     .frame(width: 250)
             }
             .buttonStyle(PrimaryButtonStyle())
@@ -90,7 +90,7 @@ struct AddBeneficiaryView: View {
             Button {
                 beneficiaryViewModel.isNavigateToList = true
             } label: {
-                Text("Voir la liste des béneficiares")
+                Text("AddBeneficiaryView.SeeBeneficiary.Button")
                     .padding()
             }
             .buttonStyle(SecondaryButtonStyle())

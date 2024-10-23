@@ -27,9 +27,9 @@ struct BananeApp: App {
                     }
                     .alert(isPresented: $showAlertError) {
                         Alert(
-                            title: Text("Erreur"),
+                            title: Text("BananeApp.ErrorTitle.Alert"),
                             message: Text(localizedError),
-                            dismissButton: .default(Text("OK")) {
+                            dismissButton: .default(Text("BananeApp.ErrorDismiss.Alert")) {
                                 localizedError = ""
                                 beneficiaryViewModel.hasError = false
                             }

@@ -15,7 +15,7 @@ struct BeneficiaryListView: View {
     var body: some View {
         VStack {
             if !beneficiary.isEmpty {
-                Text("Tous")
+                Text("BeneficiaryListView.AllBeneficiary.Text")
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .accessibilityHidden(true)
@@ -45,7 +45,7 @@ struct BeneficiaryListView: View {
             } else {
                 VStack {
                     Spacer()
-                    Text("Vous n'avez pas de bénéficiaires")
+                    Text("BeneficiaryListView.EmptyBeneficiary.Text")
                     Spacer()
                 }
             }
@@ -53,7 +53,7 @@ struct BeneficiaryListView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle("Mes Béneficiaires")
+        .navigationTitle("BeneficiaryListView.Title.Navigation")
         .navigationBarTitleDisplayMode(.inline)
     }
 }

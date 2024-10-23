@@ -18,18 +18,18 @@ struct ValidationSheetView: View {
     var body: some View {
         VStack(spacing: 20) {
             
-            Text("L'IBAN du bénéficiaire a été scanné")
+            Text("ValidationSheetView.Title.Text")
                 .bold()
                 .padding(.top, 20)
             
             Spacer()
             
             VStack(spacing: 8) {
-                Text("Pensez à le vérifier avant de valider:")
+                Text("ValidationSheetView.IBANValidationDescription.Text")
                 Text("\(iban.iban)")
                     .bold()
             }
-            .accessibilityLabel(Text("Pensez à le vérifier avant de valider:\(iban.iban)"))
+            .accessibilityLabel(Text("ValidationSheetView.IBANValidationDescription.VoiceOver:\(iban.iban)"))
             
             Spacer()
             
@@ -38,7 +38,7 @@ struct ValidationSheetView: View {
                     beneficiaryViewModel.userConfirmScannedIBAN(scannedIban: iban)
                     dismiss()
                 } label: {
-                    Text("Valider")
+                    Text("ValidationSheetView.Valid.Button")
                         .frame(width: 200)
                 }
                 .buttonStyle(PrimaryButtonStyle())
@@ -46,7 +46,7 @@ struct ValidationSheetView: View {
                 Button {
                     beneficiaryViewModel.userConfirmScannedIBAN(scannedIban: nil)
                 } label: {
-                    Text("Recommencer")
+                    Text("ValidationSheetView.Retry.Button")
                         .frame(width: 200)
 
                 }
