@@ -1,35 +1,32 @@
 //
-//  CameraView.swift
+//  AVCameraService.swift
 //  Banane
 //
-//  Created by imac luc on 21/10/2024.
+//  Created by Luc on 23/10/2024.
 //
 
-import SwiftUI
+import Foundation
 import AVFoundation
 import Vision
 
-/// Source: https://medium.com/@wesleymatlock/building-a-swiftui-app-for-scanning-text-using-the-camera-c4381aa5ee61
-struct CameraView: UIViewControllerRepresentable {
-    
-    @EnvironmentObject var scannerIBANViewModel: BeneficiaryViewModel
+final class AVCameraService: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(self, beneficiaryViewModel: scannerIBANViewModel)
+    enum Failure: Error, LocalizedError {
+        case unableToGetCaptureDevice
+        case unableToGetDeviceInput
+        case unableToGetDeviceOutput
     }
     
-    func makeUIViewController(context: Context) -> UIViewController {
-        
-        let viewController = UIViewController()
+    func foo() throws {
         let captureSession = AVCaptureSession()
         captureSession.sessionPreset = .photo
                 
-        guard let videoCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else { 
-            return viewController
+        guard let videoCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+            throw Failure.unableToGetCaptureDevice
         }
         
-        guard let videoInput = try? AVCaptureDeviceInput(device: videoCaptureDevice) else { 
-            return viewController
+        guard let videoInput = try? AVCaptureDeviceInput(device: videoCaptureDevice) else {
+            throw Failure.unableToGetDeviceInput
         }
 
         if captureSession.canAddInput(videoInput) {
@@ -37,26 +34,11 @@ struct CameraView: UIViewControllerRepresentable {
         }
         
         let videoOutput = AVCaptureVideoDataOutput()
-        videoOutput.setSampleBufferDelegate(context.coordinator, queue: DispatchQueue(label: "videoQueue"))
+        videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoQueue"))
         
         if captureSession.canAddOutput(videoOutput) {
             captureSession.addOutput(videoOutput)
         }
-        
-        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = viewController.view.layer.bounds
-        previewLayer.videoGravity = .resizeAspectFill
-        viewController.view.layer.addSublayer(previewLayer)
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            captureSession.startRunning()
-        }
-        
-        return viewController
-    }
-    
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        
     }
     
     class Coordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -107,4 +89,5 @@ struct CameraView: UIViewControllerRepresentable {
             try? imageRequestHandler.perform(self.visionRequest)
         }
     }
+    
 }

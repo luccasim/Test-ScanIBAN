@@ -18,10 +18,15 @@ struct BeneficiaryListView: View {
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .accessibilityHidden(true)
+                    .padding(20)
                 
                 ForEach(beneficiary, id: \.self.iban) { beneficiary in
                     if let iban = beneficiary.iban {
-                        Text(iban)
+                        Label {
+                            Text("\(iban)")
+                        } icon: {
+                            Image(systemName: "person.circle")
+                        }
                     }
                 }
             } else {

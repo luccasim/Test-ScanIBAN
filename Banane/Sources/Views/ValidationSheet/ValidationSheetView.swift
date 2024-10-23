@@ -41,7 +41,7 @@ struct ValidationSheetView: View {
                     Text("Valider")
                         .frame(width: 200)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(PrimaryButtonStyle())
                 
                 Button {
                     beneficiaryViewModel.userConfirmScannedIBAN(scannedIban: nil)
@@ -50,7 +50,7 @@ struct ValidationSheetView: View {
                         .frame(width: 200)
 
                 }
-                .buttonStyle(.bordered)
+                .buttonStyle(SecondaryButtonStyle())
             }
         }
         .presentationDetents([.medium])
