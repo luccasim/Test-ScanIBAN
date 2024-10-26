@@ -36,7 +36,6 @@ final class SetupCameraUsecase: SetupCameraUsecaseProtocol {
             "L'application n'a pas accès à votre caméra. Veuillez vérifier qu'elle est bien" +
             " autorisée dans les réglages ou qu'elle n'est pas endommagée"
         }
-        
     }
     
     // MARK: - DataTask

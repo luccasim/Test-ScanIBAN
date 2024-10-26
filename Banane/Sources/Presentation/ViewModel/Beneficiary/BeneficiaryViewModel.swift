@@ -70,16 +70,20 @@ final class BeneficiaryViewModel: ObservableObject {
             return
         }
         
-        let result = scannerIBANUsecase.execute(input: .init(scannedText: input))
-        if let iban = result.iban {
+        let result = try? scannerIBANUsecase.execute(input: .init(scannedText: input))
+        if let iban = result?.iban {
             self.stopCaerma(session: self.cameraSession)
             self.scannedIban = iban
             self.isValidIban = true
+        } else {
+            self.scannedIban = nil
+            self.isValidIban = false
         }
     }
     
     func userTapIban(input: String) {
-        if scannedIban == nil { // évalue l'input que si le scan n'est pas disponible
+        if !isNavigateToScan { // évalue l'input que si le scan n'est pas disponible
+            self.scannedIban = nil
             userScan(input: input)
         }
     }

@@ -29,11 +29,11 @@ struct ScannerValidateIBANUsecaseUnitTests {
         // When
 
         // Then
-        let result = sut.execute(input: input)
+        let result = try sut.execute(input: input)
         #expect(result.iban != nil)
     }
     
-    @Test("Given random String, When no dependencies, Then result has not valid IBAN",
+    @Test("Given random String, When no dependencies, Then throw notMatchingIBAN",
           arguments: ["Bonjour", "Hello world", "1234", "azerty"])
     func testRandomString(iban: String) async throws {
         // Given
@@ -42,7 +42,8 @@ struct ScannerValidateIBANUsecaseUnitTests {
         // When
 
         // Then
-        let result = sut.execute(input: input)
-        #expect(result.iban == nil)
+        await #expect(throws: ScannerValidateIBANUsecase.Failure.notMatchingIBAN) {
+            try await sut.execute(input: input)
+        }
     }
 }
