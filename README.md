@@ -4,7 +4,7 @@
 
 Fixes:
 - coupure de la caméra lorsque la sheet de confirmation apparait
-- ajout d'un coordinator pour la gestion des alert lors des erreurs
+- ajout d'un coordinator pour la gestion des alertes lors des erreurs
 - correction des petits bug d'affichage sur les actions de validation d'iBAN
 
 ## Overview
