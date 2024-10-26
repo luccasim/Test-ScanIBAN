@@ -73,7 +73,7 @@ struct CameraView: UIViewControllerRepresentable {
             guard let observations = request?.results as? [VNRecognizedTextObservation] else {
                 return
             }
-                        
+            
             for observation in observations {
                 guard let candidate = observation.topCandidates(1).first else {
                     continue

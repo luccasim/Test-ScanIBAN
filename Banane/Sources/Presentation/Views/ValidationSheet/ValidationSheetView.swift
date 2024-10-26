@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ValidationSheetView: View {
     
-    
     @EnvironmentObject private var beneficiaryViewModel: BeneficiaryViewModel
     @Environment(\.dismiss) var dismiss
     
@@ -35,7 +34,7 @@ struct ValidationSheetView: View {
             
             VStack(spacing: 10) {
                 Button {
-                    beneficiaryViewModel.userConfirmScannedIBAN(scannedIban: iban)
+                    beneficiaryViewModel.userConfirmScannedIBAN(confirmIBan: iban)
                     dismiss()
                 } label: {
                     Text("ValidationSheetView.Valid.Button")
@@ -44,7 +43,8 @@ struct ValidationSheetView: View {
                 .buttonStyle(PrimaryButtonStyle())
                 
                 Button {
-                    beneficiaryViewModel.userConfirmScannedIBAN(scannedIban: nil)
+                    beneficiaryViewModel.userConfirmScannedIBAN(confirmIBan: nil)
+                    dismiss()
                 } label: {
                     Text("ValidationSheetView.Retry.Button")
                         .frame(width: 200)

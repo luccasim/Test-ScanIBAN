@@ -31,19 +31,8 @@ struct AddBeneficiaryView: View {
         .padding()
         .navigationTitle("AddBeneficiaryView.Title.Navigation")
         .navigationBarTitleDisplayMode(.inline)
-        .onChange(of: beneficiaryViewModel.hasError) { newValue in
-            if newValue {
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
-            }
-        }
-        .alert(isPresented: $beneficiaryViewModel.hasError) {
-            Alert(
-                title: Text("BananeApp.ErrorTitle.Alert"),
-                message: Text(beneficiaryViewModel.errors?.localizedDescription ?? ""),
-                dismissButton: .default(Text("BananeApp.ErrorDismiss.Alert")) {
-                    beneficiaryViewModel.hasError = false
-                }
-            )
+        .navigationDestination(isPresented: $beneficiaryViewModel.isNavigateToScan) {
+            ScannerIBANView()
         }
     }
     
@@ -52,7 +41,7 @@ struct AddBeneficiaryView: View {
             Group {
                 TextField("AddBeneficiaryView.IBANPlaceholder.TextField", text: $beneficiaryViewModel.ibanInput)
                     .onChange(of: beneficiaryViewModel.ibanInput) { newValue in
-                        beneficiaryViewModel.analyse(input: newValue)
+                        beneficiaryViewModel.userTapIban(input: newValue)
                     }
                 
                 
@@ -72,9 +61,6 @@ struct AddBeneficiaryView: View {
                     .padding()
             }
             .buttonStyle(SecondaryButtonStyle())
-            .navigationDestination(isPresented: $beneficiaryViewModel.isNavigateToScan) {
-                ScannerIBANView()
-            }
             
             NavigationLink {
                 EmptyView()

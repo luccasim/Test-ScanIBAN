@@ -16,7 +16,9 @@ struct BananeApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                AddBeneficiaryView()
+                AlertCoordinator {
+                    AddBeneficiaryView()
+                }
             }
             .environment(\.managedObjectContext, persistenceController.context)
             .environmentObject(BeneficiaryViewModel())

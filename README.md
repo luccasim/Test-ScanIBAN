@@ -1,13 +1,13 @@
-# SwiftUI Clean Architecture Project
+# POC OCR-IBAN
 
-## Project Overview
+## Overview
 
 Ce projet est un test technique devant répondre, le nom du projet s'appelle Banane... (j'ai souhaité garder l'historique des commits)
 
 ### Spécifications techniques :
 
 - Développer les écrans en utilisant Swift ✅
-- Utilisation d'une architecture au choix (MVVM ou Clean Architecture) ✅
+- Utilisation d'une architecture au choix (MVVM + Clean Architecture) ✅
 - Gestion de l'IBAN français ✅
 - Pas de gestion de la tabBar ✅
 

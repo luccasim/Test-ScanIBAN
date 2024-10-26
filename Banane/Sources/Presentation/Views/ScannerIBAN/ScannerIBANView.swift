@@ -17,13 +17,14 @@ struct ScannerIBANView: View {
             
             if let cameraSession = beneficiaryViewModel.cameraSession {
                 CameraView(captureSession: cameraSession.captureSession) { result in
-                    beneficiaryViewModel.analyse(input: result)
+                    beneficiaryViewModel.userScan(input: result)
                 }
             }
             
             ZStack {
                 Rectangle()
                     .fill(Color.blue.opacity(0.3))
+                    .ignoresSafeArea(.all)
                 
                 Rectangle()
                     .frame(height: 50)
@@ -49,6 +50,9 @@ struct ScannerIBANView: View {
         .sheet(item: $beneficiaryViewModel.scannedIban) { iban in
             ValidationSheetView(iban: iban)
                 .presentationDetents([.medium])
+                .onDisappear {
+                    beneficiaryViewModel.userLeaveConfirmSheet()
+                }
         }
         .onDisappear {
             beneficiaryViewModel.userLeaveScannerView()

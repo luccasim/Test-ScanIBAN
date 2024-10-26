@@ -17,7 +17,7 @@ struct PrimaryButtonStyle: ButtonStyle {
         configuration.label
             .frame(height: 50)
             .foregroundStyle(Color.white)
-            .background(isEnabled ? Color.bfbBlue : Color.gray.opacity(0.5))
+            .background(isEnabled ? Color.bfbBlue.opacity(configuration.isPressed ? 0.5 : 1) : Color.gray.opacity(0.5))
             .clipShape(Capsule())
     }
 }
@@ -30,10 +30,10 @@ struct SecondaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(height: 50)
-            .foregroundStyle(isEnabled ? Color.bfbBlue : Color.gray.opacity(0.5))
+            .foregroundStyle(isEnabled ? Color.bfbBlue.opacity(configuration.isPressed ? 0.5 : 1) : Color.gray.opacity(0.5))
             .clipShape(Capsule())
             .overlay(
-                Capsule().stroke(isEnabled ? Color.bfbBlue : Color.gray.opacity(0.5))
+                Capsule().stroke(isEnabled ? Color.bfbBlue.opacity(configuration.isPressed ? 0.5 : 1) : Color.gray.opacity(0.5))
             )
     }
 }
