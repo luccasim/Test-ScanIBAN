@@ -58,7 +58,7 @@ struct BeneficiaryListView: View {
         .navigationTitle("BeneficiaryListView.Title.Navigation")
         .navigationBarTitleDisplayMode(.inline)
         .onDisappear {
-            beneficiaryViewModel.resetTextField()
+            beneficiaryViewModel.userLeaveBeneficiaryList()
         }
     }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class BeneficiaryViewModel: ObservableObject {
     
     // MARK: - Published
@@ -21,7 +22,7 @@ final class BeneficiaryViewModel: ObservableObject {
     
     @Published var isNavigateToScan = false
     @Published var isNavigateToList = false
-    
+            
     var isValidForNewBeneficiary: Bool {
         !labelInput.isEmpty && isValidIban
     }
@@ -37,17 +38,49 @@ final class BeneficiaryViewModel: ObservableObject {
     private let createNewBeneficiaryUsecase = ScannerCreateNewBeneficiaryUsecase()
     private let setupCameraSessionUsecase = SetupCameraUsecase()
     
+    // MARK: Private
+    
+    private func resetTextField() {
+        self.ibanInput = ""
+        self.labelInput = ""
+        self.isValidIban = false
+        self.scannedIban = nil
+    }
+    
+    private func startCamera(session: CameraSession?) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let captureSesion = session?.captureSession {
+                captureSesion.startRunning()
+            }
+        }
+    }
+    
+    private func stopCaerma(session: CameraSession?) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let captureSession = session?.captureSession {
+                captureSession.stopRunning()
+            }
+        }
+    }
+    
     // MARK: - Triggers
     
-    func analyse(input: String) {
-        if scannedIban == nil {
-            let result = scannerIBANUsecase.execute(input: .init(scannedText: input))
-            DispatchQueue.main.async {
-                if let iban = result.iban {
-                    self.scannedIban = iban
-                    self.isValidIban = true
-                }
-            }
+    func userScan(input: String) {
+        guard scannedIban == nil else {
+            return
+        }
+        
+        let result = scannerIBANUsecase.execute(input: .init(scannedText: input))
+        if let iban = result.iban {
+            self.stopCaerma(session: self.cameraSession)
+            self.scannedIban = iban
+            self.isValidIban = true
+        }
+    }
+    
+    func userTapIban(input: String) {
+        if scannedIban == nil { // évalue l'input que si le scan n'est pas disponible
+            userScan(input: input)
         }
     }
     
@@ -55,9 +88,7 @@ final class BeneficiaryViewModel: ObservableObject {
         do {
             let result = try setupCameraSessionUsecase.execute(input: .init())
             self.cameraSession = result.validCaptureSession
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.cameraSession?.captureSession.startRunning()
-            }
+            self.startCamera(session: self.cameraSession)
         } catch {
             self.errors = errors
             self.hasError = true
@@ -66,29 +97,21 @@ final class BeneficiaryViewModel: ObservableObject {
         self.resetTextField()
     }
     
-    func resetTextField() {
-        self.ibanInput = ""
-        self.labelInput = ""
-        self.isValidIban = false
-        self.scannedIban = nil
-    }
-    
     func userLeaveScannerView() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.cameraSession?.captureSession.stopRunning()
-        }
+        self.stopCaerma(session: self.cameraSession)
         self.cameraSession = nil
     }
     
-    func userConfirmScannedIBAN(scannedIban: ValidIban?) {
-        if let scannedIban = scannedIban {
-            self.ibanInput = scannedIban.iban
-            self.isNavigateToScan = false
-            self.isValidIban = true
+    func userConfirmScannedIBAN(confirmIBan: ValidIban?) {
+        if let confirmIBan = confirmIBan {
+            self.ibanInput = confirmIBan.iban
         } else {
             self.isValidIban = false
+            // Attend la fin de l'animation de la sheet pour relancer le scanner
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                self.startCamera(session: self.cameraSession)
+            }
         }
-        self.scannedIban = nil // dismiss sheet
     }
     
     func userValidBeneficiary() {
@@ -99,5 +122,15 @@ final class BeneficiaryViewModel: ObservableObject {
             self.errors = error
             self.hasError = true
         }
+    }
+    
+    func userLeaveConfirmSheet() {
+        if isValidIban {
+            self.isNavigateToScan = false
+        }
+    }
+    
+    func userLeaveBeneficiaryList() {
+        self.resetTextField()
     }
 }
