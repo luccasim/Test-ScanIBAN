@@ -1,8 +1,15 @@
 # POC OCR-IBAN
 
+## 1.0.1
+
+Fixes:
+- coupure de la caméra lorsque la sheet de confirmation apparait
+- ajout d'un coordinator pour la gestion des alert lors des erreurs
+- correction des petits bug d'affichage sur les actions de validation d'iBAN
+
 ## Overview
 
-Ce projet est un test technique devant répondre, le nom du projet s'appelle Banane... (j'ai souhaité garder l'historique des commits)
+Ce projet est un test technique devant répondre, le nom du projet s'appelle Banane... (j'ai souhaité garder l'historique des commits).
 
 ### Spécifications techniques :
 
