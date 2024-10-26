@@ -91,7 +91,7 @@
         }
       }
     },
-    "BananeApp.ErrorDismiss.Alert" : {
+    "AlertCoordinator.ErrorDismiss.Alert" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -101,7 +101,7 @@
         }
       }
     },
-    "BananeApp.ErrorTitle.Alert" : {
+    "AlertCoordinator.ErrorTitle.Alert" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {

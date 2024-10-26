@@ -94,8 +94,7 @@ final class BeneficiaryViewModel: ObservableObject {
             self.cameraSession = result.validCaptureSession
             self.startCamera(session: self.cameraSession)
         } catch {
-            self.errors = errors
-            self.hasError = true
+            error.alert()
         }
         self.isNavigateToScan = true
         self.resetTextField()
@@ -123,8 +122,7 @@ final class BeneficiaryViewModel: ObservableObject {
             try createNewBeneficiaryUsecase.execute(input: .init(iban: ibanInput, label: labelInput))
             isNavigateToList = true
         } catch {
-            self.errors = error
-            self.hasError = true
+            error.alert()
         }
     }
     

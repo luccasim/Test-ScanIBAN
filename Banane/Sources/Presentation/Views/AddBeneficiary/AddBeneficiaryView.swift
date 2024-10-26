@@ -39,15 +39,15 @@ struct AddBeneficiaryView: View {
         .navigationDestination(isPresented: $beneficiaryViewModel.isNavigateToScan) {
             ScannerIBANView()
         }
-        .alert(isPresented: $beneficiaryViewModel.hasError) {
-            Alert(
-                title: Text("BananeApp.ErrorTitle.Alert"),
-                message: Text(beneficiaryViewModel.errors?.localizedDescription ?? ""),
-                dismissButton: .default(Text("BananeApp.ErrorDismiss.Alert")) {
-                    beneficiaryViewModel.hasError = false
-                }
-            )
-        }
+//        .alert(isPresented: $beneficiaryViewModel.hasError) {
+//            Alert(
+//                title: Text("BananeApp.ErrorTitle.Alert"),
+//                message: Text(beneficiaryViewModel.errors?.localizedDescription ?? ""),
+//                dismissButton: .default(Text("BananeApp.ErrorDismiss.Alert")) {
+//                    beneficiaryViewModel.hasError = false
+//                }
+//            )
+//        }
     }
     
     var textFields: some View {
