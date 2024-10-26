@@ -31,23 +31,9 @@ struct AddBeneficiaryView: View {
         .padding()
         .navigationTitle("AddBeneficiaryView.Title.Navigation")
         .navigationBarTitleDisplayMode(.inline)
-        .onChange(of: beneficiaryViewModel.hasError) { newValue in
-            if newValue {
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
-            }
-        }
         .navigationDestination(isPresented: $beneficiaryViewModel.isNavigateToScan) {
             ScannerIBANView()
         }
-//        .alert(isPresented: $beneficiaryViewModel.hasError) {
-//            Alert(
-//                title: Text("BananeApp.ErrorTitle.Alert"),
-//                message: Text(beneficiaryViewModel.errors?.localizedDescription ?? ""),
-//                dismissButton: .default(Text("BananeApp.ErrorDismiss.Alert")) {
-//                    beneficiaryViewModel.hasError = false
-//                }
-//            )
-//        }
     }
     
     var textFields: some View {

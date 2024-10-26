@@ -16,9 +16,7 @@ final class BeneficiaryViewModel: ObservableObject {
     @Published var cameraSession: CameraSession?
     @Published var ibanInput = ""
     @Published var labelInput = ""
-    @Published var errors: Error?
     @Published var isValidIban = false
-    @Published var hasError = false
     
     @Published var isNavigateToScan = false
     @Published var isNavigateToList = false
@@ -29,7 +27,6 @@ final class BeneficiaryViewModel: ObservableObject {
     
     init(scannedIban: ValidIban? = nil) {
         self.scannedIban = scannedIban
-        self.errors = SetupCameraUsecase.Failure.unableToSetupCaptureDevice
     }
     
     // MARK: - Usecases

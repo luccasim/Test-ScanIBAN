@@ -24,6 +24,7 @@ struct AlertCoordinator<Content:View>: View {
                 if let error = output.object as? Error {
                     self.receivedError = error
                     self.showAlert = true
+                    UINotificationFeedbackGenerator().notificationOccurred(.error)
                 }
             })
             .alert(isPresented: $showAlert) {
